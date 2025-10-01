@@ -72,14 +72,23 @@ int main()
 	std::cout << "\nCUDA device does " << (!prop.concurrentManagedAccess ? "NOT " : "") << "support concurrent access\n";
 
 	// If we can, we prefetch ahead of time
-	if(prop.concurrentManagedAccess)
-		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), device);
-	// Launch kernel with managed memory pointer as parameter
+	if (prop.concurrentManagedAccess) {
+		cudaMemLocation loc;
+		loc.type = cudaMemLocationTypeDevice;
+		loc.id = device;
+		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), loc, 0);
+	}
+        // Launch kernel with managed memory pointer as parameter
 	PrintBar<<<1,1>>>(mBarPtr, VALUE);
 	// We may also prefetch it back to the CPU
-	if (prop.concurrentManagedAccess)
-		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), cudaCpuDeviceId);
-	// Wait for GPU printing and prefetching to finish
+        // Prefetch to CPU
+	if (prop.concurrentManagedAccess) {
+		cudaMemLocation loc;
+		loc.type = cudaMemLocationTypeHost;
+		loc.id = cudaCpuDeviceId;
+		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), loc, 0);
+	}
+        // Wait for GPU printing and prefetching to finish
 	cudaDeviceSynchronize();
 
 	std::cout << "mBar CPU: ";

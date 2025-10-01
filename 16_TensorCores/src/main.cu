@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <mma.h>
-#include <cublas.h>
+// #include <cublas.h>
 #include <cublas_v2.h>
 #include "../../shared/include/utility.h"
 
@@ -17,7 +17,7 @@ __global__ void MatMulKernelTensor(half* A, half* B, float* C)
     using namespace nvcuda;
 
     /*
-    Declare the input and output fragments (small matrix tiles). Each fragment
+    Declareï¿½the input and outputï¿½fragments (small matrix tiles). Each fragment
     defines its type (matrix_a and matrix_b are the multiplicands, accumulator
     is one that results are accumulated in), the dimensions NxMxK of the fragment,
     the data type and the layout.
@@ -26,7 +26,7 @@ __global__ void MatMulKernelTensor(half* A, half* B, float* C)
     wmma::fragment<wmma::matrix_b, 16, 16, 16, half, wmma::row_major> b_frag;
     wmma::fragment<wmma::accumulator, 16, 16, 16, float> acc_frag;
    
-    // Initialize the output fragment to zero
+    //ï¿½Initialize the output fragment to zero
     wmma::fill_fragment(acc_frag, 0.0f);
 
     /* 

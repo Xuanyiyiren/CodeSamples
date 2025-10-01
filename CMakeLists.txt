@@ -5,6 +5,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CUDA_STANDARD 17)
 
 project(TutorialSamples LANGUAGES CUDA CXX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(00_MyGPU)
 add_subdirectory(01_HelloGPU)
@@ -24,5 +25,5 @@ add_subdirectory(14_ManagedMemory)
 add_subdirectory(15_GraphAPI)
 add_subdirectory(16_TensorCores)
 add_subdirectory(17_CooperativeGroups)
-add_subdirectory(18_StandardLibrary)
+# add_subdirectory(18_StandardLibrary)
 
