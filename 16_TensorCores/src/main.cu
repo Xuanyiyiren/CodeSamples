@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <mma.h>
-#include <cublas.h>
+// #include <cublas.h>
 #include <cublas_v2.h>
 #include "../../shared/include/utility.h"
 

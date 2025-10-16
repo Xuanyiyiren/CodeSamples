@@ -73,12 +73,12 @@ int main()
 
 	// If we can, we prefetch ahead of time
 	if(prop.concurrentManagedAccess)
-		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), device);
+		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), cudaMemLocation{cudaMemLocationTypeDevice, device}, 0);
 	// Launch kernel with managed memory pointer as parameter
 	PrintBar<<<1,1>>>(mBarPtr, VALUE);
 	// We may also prefetch it back to the CPU
 	if (prop.concurrentManagedAccess)
-		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), cudaCpuDeviceId);
+		cudaMemPrefetchAsync(mBarPtr, VALUE * sizeof(int), cudaMemLocation{cudaMemLocationTypeHost, cudaCpuDeviceId}, 0);
 	// Wait for GPU printing and prefetching to finish
 	cudaDeviceSynchronize();
 

@@ -45,8 +45,13 @@ int main()
 		std::cout << "Compute capability: " << props.major << "." << props.minor << std::endl;
 		std::cout << "Memory: " << props.totalGlobalMem / float(1 << 30) << " GiB" << std::endl;
 		std::cout << "Multiprocessors: " << props.multiProcessorCount << std::endl;
-		std::cout << "Clock rate: " << props.clockRate / float(1'000'000) << " GHz" << std::endl
-				  << std::endl;
+		
+		int clockRate = 0;
+		cudaDeviceGetAttribute(&clockRate, cudaDevAttrClockRate, device);
+		
+		std::cout << "Clock rate: " << clockRate / float(1'000'000) << " GHz" << std::endl
+			  << std::endl;
+
 	}
 	return 0;
 }

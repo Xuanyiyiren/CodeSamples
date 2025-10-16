@@ -1,6 +1,7 @@
 #include <cuda_runtime_api.h>
 #include <iostream>
 #include <vector>
+#include <thread>
 #include <iomanip>
 #include <random>
 #include <algorithm>
