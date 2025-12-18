@@ -93,7 +93,7 @@ int main()
 	// Launch the reduction with the given number of CPU threads
 	completeReductionCPU<CPUThreads>(N, mNumbers);
 	// Launch the reduction on the GPU with as many threads as there are inputs
-	completeReductionGPU << <(N + 255) / 256, 256 >> > (N, mNumbers);
+	completeReductionGPU<<<(N + 255) / 256, 256>>>(N, mNumbers);
 	cudaDeviceSynchronize();
 
 	// Output both results

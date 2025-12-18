@@ -1,0 +1,9 @@
+CompileFlags:
+  Add:
+    - -I/home/shwan/AnAnnoyingClangdLintError/include_oldcuda
+    - -std=gnu++20
+    # - -isystem
+  Remove:
+    - -forward-unknown-to-host-compiler
+    - --options-file
+    - --generate-code*

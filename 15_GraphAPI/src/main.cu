@@ -19,7 +19,7 @@ void runTasksSequentially(unsigned int numTasks)
 	// cudaStreamLegacy is not permitted by the graph API.
 
 	for (int i = 0; i < numTasks; i++)
-		busy << <1, 1, 0, cudaStreamPerThread >> > ();
+		busy<<<1, 1, 0, cudaStreamPerThread>>>();
 }
 
 void runTasksWithStreams(unsigned int numTasks)
@@ -46,7 +46,7 @@ void runTasksWithStreams(unsigned int numTasks)
 		// Establish dependency / connection to origin (is now included in capture)
 		cudaStreamWaitEvent(streams[i], start);
 		// Run actual task (kernel) in stream
-		busy << <1, 1, 0, streams[i] >> > ();
+		busy<<<1, 1, 0, streams[i]>>>();
 		// Record end event of this stream so origin can wait on it
 		cudaEventRecord(finished[i], streams[i]);
 	}

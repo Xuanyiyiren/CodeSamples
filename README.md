@@ -16,3 +16,18 @@ Recommended:
 * Nsight Compute
 * CUDA capable GPU with compute capability 7.0 or later
 * CUDA Toolkit 11.0 or later
+
+## Build the code
+
+To build the code, run the following command:
+
+```bash
+cmake -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+cmake --build build -j
+```
+
+To run the code, run the following command:
+
+```bash
+./build/00_MyGPU
+```
